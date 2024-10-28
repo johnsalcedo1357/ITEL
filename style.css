@@ -1,0 +1,11 @@
+.bg {
+    animation-name: colored;
+}
+
+@keyframes {
+    
+}
+
+.text {
+    color:rgb(127, 172, 223);
+}
