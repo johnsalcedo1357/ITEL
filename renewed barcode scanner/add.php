@@ -1,6 +1,5 @@
 <?php
 include 'db.php';
-$message='';
 clear_temp_table();
 function generateBarcode($conn) {
     $count = 1;
@@ -33,18 +32,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     } else {
         $price = floatval($price);
 
-            // Add item
-            $insertStmt = $conn->prepare("INSERT INTO item (barcode, name, price) VALUES (?, ?, ?)");
-            if ($insertStmt === false) {
-                die('Prepare failed: ' . htmlspecialchars($conn->error));
-            }
-            $insertStmt->bind_param("ssd", $barcode, $name, $price);
-            if ($insertStmt->execute()) {
-                $message = "Item added.";
-            } else {
-                $message = "Error: " . htmlspecialchars($insertStmt->error);
-            }
-            $insertStmt->close();
+            // // Add item
+            // $insertStmt = $conn->prepare("INSERT INTO item (barcode, name, price) VALUES (?, ?, ?)");
+            // if ($insertStmt === false) {
+            //     die('Prepare failed: ' . htmlspecialchars($conn->error));
+            // }
+            // $insertStmt->bind_param("ssd", $barcode, $name, $price);
+            // if ($insertStmt->execute()) {
+            //     $message = "Item added.";
+            // } else {
+            //     $message = "Error: " . htmlspecialchars($insertStmt->error);
+            // }
+            // $insertStmt->close();
+
+            add($barcode, $name, $price);
     }
 }
 ?>

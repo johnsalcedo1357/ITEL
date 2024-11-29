@@ -4,6 +4,7 @@ $db_host = 'localhost';
 $db_user = 'root';
 $db_password = '';
 $db_name = 'barcode';
+$message = '';
 
 // Create connection
 $conn = new mysqli($db_host, $db_user, $db_password, $db_name);
@@ -24,5 +25,24 @@ function clear_temp_table() {
     global $conn;
     $sql = "DROP TABLE temp";
     $conn->query($sql);
+}
+
+function add($barcode, $name, $price, $table="item"){
+    global $conn;
+    $insertStmt = $conn->prepare("INSERT INTO $table (barcode, name, price) VALUES (?, ?, ?)");
+            if ($insertStmt === false) {
+                die('Prepare failed: ' . htmlspecialchars($conn->error));
+            }
+            $insertStmt->bind_param("ssd", $barcode, $name, $price);
+            if ($insertStmt->execute()) {
+                $message = "Item added.";
+            } else {
+                $message = "Error: " . htmlspecialchars($insertStmt->error);
+            }
+            $insertStmt->close();
+}
+
+function search(){
+
 }
 ?>
